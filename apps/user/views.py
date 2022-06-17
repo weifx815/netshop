@@ -1,8 +1,8 @@
 from django.shortcuts import render, HttpResponse
-
+from faker import Faker
 # Create your views here.
 
 
 def login(requset):
-    print("21321323")
-    return HttpResponse("可以访问了")
+    fake = Faker(locale='zh_CN')
+    return HttpResponse(fake.name()+"访问了")
