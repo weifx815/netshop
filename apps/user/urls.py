@@ -19,4 +19,5 @@ from apps.user import views
 urlpatterns = [
     # 前段访问 /user/login/
     path('login/', views.login),
+    path('register/', views.register),
 ]
