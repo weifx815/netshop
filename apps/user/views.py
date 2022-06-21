@@ -3,35 +3,38 @@ from django.shortcuts import render, HttpResponse
 from faker import Faker
 from apps.user import models
 from utils.produce_test_date import GetSysAdminInfo
-from django import forms
+from django.forms import forms
+from django.db.models import Q
 # Create your views here.
 
 
-def login(requset):
+def login(request):
     print("登录")
-    return render(requset, "login.html")
+    return render(request, "login.html")
 
 
-def register(requset):
-    if requset.method == "GET":
-        form = RegisterModelForm()
-    return render(requset, "register.html", {"form": form})
-    if requset.method == "POST":
-        form = RegisterModelForm(data=requset.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("Y", mimetype='application/javascript')
-        else:
-            return render(requset, "register.html", {"form": form})
+def register(request):
+    return render(request, "register.html")
 
 
-class RegisterModelForm(forms.ModelForm):
-    class Meta:
-        model = models.UserAdminInfo
-        fields = ['user_name', 'user_account', 'password', 'phone_number', 'email']
+def ifRegister(request):
+    flag = "N"
+    code = request.GET.get("code")
+    obj = models.UserAdminInfo.objects.filter(Q(user_account=code) | Q(phone_number=code) | Q(email=code)).first()
+    if obj:
+        flag = "Y"
+    return HttpResponse(flag)
 
 
-def fakedata(requset):
+def getPhoneCode(request):
+    fake = Faker("zh-CN")
+    code = request.GET.get("code")
+    code = fake.random_number(digits=6)
+    print("手机验证码："+str(code))
+    return HttpResponse(code)
+
+
+def fakedata(request):
     fake = Faker("zh-CN")
     GetSysAdminInfo.user_name = fake.name()
     GetSysAdminInfo.user_account = fake.email()

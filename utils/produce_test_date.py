@@ -1,7 +1,11 @@
 from faker import Faker
 
 
-class GetSysAdminInfo(object):
+class GetSysAdminInfo:
+
+    def __init__(self):
+        pass
+
     fake = Faker("zh-CN")
     user_name = fake.name()
     user_account = fake.email()
