@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponse
 from faker import Faker
 from apps.user import models
 from utils.produce_test_date import GetSysAdminInfo
-from django.forms import forms
+from django import forms
 # Create your views here.
 
 
@@ -13,7 +13,22 @@ def login(requset):
 
 
 def register(requset):
-    return render(requset, "register.html")
+    if requset.method == "GET":
+        form = RegisterModelForm()
+    return render(requset, "register.html", {"form": form})
+    if requset.method == "POST":
+        form = RegisterModelForm(data=requset.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("Y", mimetype='application/javascript')
+        else:
+            return render(requset, "register.html", {"form": form})
+
+
+class RegisterModelForm(forms.ModelForm):
+    class Meta:
+        model = models.UserAdminInfo
+        fields = ['user_name', 'user_account', 'password', 'phone_number', 'email']
 
 
 def fakedata(requset):

@@ -30,41 +30,49 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">欢迎注册成为IDOG商城用户</h1>
                             </div>
-                            <form class="user" action="/user/register/" method="post">
+                            <form class="user" action="/user/register/" method="post" id="registerForm" name="registerForm">
+                                {% csrf_token %}
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="请输入昵称...">
+                                        <input type="text" class="form-control form-control-user" id="user_name" maxlength="10" minlength="2"
+                                            name="user_name" placeholder="请输入昵称..." title="昵称"/>
+                                        <span id="user_name_error" style="font-size: 10px;font-style: normal;color: red;margin-left: 25px"></span>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="请输入账号...">
+                                        <input type="text" class="form-control form-control-user" id="user_account" maxlength="10" minlength="5"
+                                            name="user_account" placeholder="请输入账号..." title="账号"/>
+                                        <span id="user_account_error" style="font-size: 10px;font-style: normal;color: red;margin-left: 25px"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="请输入密码...">
+                                        <input type="password" class="form-control form-control-user" autocomplete="off" maxlength="8" minlength="6"
+                                            id="password" name="password" placeholder="请输入密码..." title="密码"/>
+                                        <span id="password_error" style="font-size: 10px;font-style: normal;color: red;margin-left: 25px"></span>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="请再次确认密码...">
+                                        <input type="password" class="form-control form-control-user" autocomplete="off" maxlength="8" minlength="6"
+                                            id="repeatPassword" name="repeatPassword" placeholder="请再次确认密码..." title="二次密码">
+                                        <span id="repeatPassword_error" style="font-size: 10px;font-style: normal;color: red;margin-left: 25px"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="请输入手机号...">
+                                        <input type="text" class="form-control form-control-user" id="phone_number" maxlength="11" minlength="11"
+                                            name="phone_number" verificationtype="phonecode" placeholder="请输入手机号..." title="手机号"/>
+                                        <span id="phone_number_error" style="font-size: 10px;font-style: normal;color: red;margin-left: 25px"></span>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="请输入电子邮箱...">
+                                        <input type="text" class="form-control form-control-user" id="email" maxlength="50" minlength="7"
+                                            name="email" verificationtype="email" placeholder="请输入电子邮箱..." title="电子邮箱"/>
+                                        <span id="email_error" style="font-size: 10px;font-style: normal;color: red;margin-left: 25px"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="请输入手机验证码...">
+                                        <input type="text" class="form-control form-control-user" maxlength="6" minlength="6"
+                                            id="phone_code" name="phone_code" placeholder="请输入手机验证码..." title="手机验证码">
+                                        <span id="phone_code_error" style="font-size: 10px;font-style: normal;color: red;margin-left: 25px"></span>
                                     </div>
                                     <div class="col-sm-6">
                                         <a href="###" class="btn btn-facebook btn-user btn-block" id="">
@@ -89,19 +97,13 @@
                 </div>
             </div>
         </div>
-
     </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
 </body>
-
 </html>
