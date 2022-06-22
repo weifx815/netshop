@@ -26,6 +26,7 @@ function validationFormObjects(formId) {
         let ctltype = $(ctl).attr("type").toLowerCase();
         if(ctltype != "hidden"){
             $("#"+errorId).text("");
+            alert(title);
             //验证不允许为空
             if($.trim(ctl.value) == ""){
                 $("#"+errorId).text(title+"不允许为空");
@@ -44,6 +45,20 @@ function validationFormObjects(formId) {
             //验证手机号
             if(verificationType=="phonecode" && !isPhone($.trim(ctl.value))){
                 $("#"+errorId).text(title+"格式不正确");
+                return false;
+            }
+            //验证密码必须字符与数字结合
+            if(ctltype == "password"){
+                let pw = /[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/;
+                alert(pw.test($.trim(ctl.value)));
+                if(!pw.test($.trim(ctl.value))){
+                    $("#"+errorId).text(title+"格式不正确");
+                    return false;
+                }
+            }
+            //验证两次密码是否一致if(val.match())
+            if(!passwordVerification() && verificationType == "repeatPassword"){
+                $("#"+errorId).text("两次密码不一致，请确认");
                 return false;
             }
             //验证用户账号是否被注册
@@ -93,6 +108,7 @@ function isPhone(code){
     let bChk=szReg.test(code);
     return bChk;
 }
+//获取手机验证码
 function getPhoneCode(){
     let phone_number = $("#phone_number").val();
     if(phone_number==""){
@@ -132,4 +148,13 @@ function countDown(){
             $("#getPhoneCode").css("cursor","pointer");
         }
     },1000)
+}
+//判断密码是否一致
+function passwordVerification(){
+    let password = $("#password").val();
+    let repeatPassword = $("#repeatPassword").val();
+    if(password != repeatPassword){
+        return false;
+    }
+    return true;
 }
