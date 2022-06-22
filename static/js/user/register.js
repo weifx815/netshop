@@ -122,7 +122,7 @@ function countDown(){
     let times = 60;
     let times_0 = setInterval(function (){
         times = times - 1;
-        if(times>1){
+        if(times>0){
             $("#getPhoneCode").text(times+" 秒后重新获取验证码");
         }else{
             clearInterval(times_0);
