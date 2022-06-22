@@ -91,13 +91,14 @@ let phoneCodeBinOnclick = function(){
             type: 'get',
             url: '/user/register/phonecode/',
             data: {'code': phone_number},
-            async: false,
+            async: true,
             success: function(rdata) {
                 $("#phone_code").val(rdata);
-                $("#getPhoneCode").text("60秒后重新获取验证码");
-                $("#getPhoneCode").unbind();
-                $("#phone_number_error").text("");
+                countDown();
                 return false;
+            },
+            error:function (rdata){
+                $("#phone_number_error").text("系统出错了，请重新获取");
             }
         });
     });
@@ -114,6 +115,22 @@ function isPhone(code){
     let bChk=szReg.test(code);
     return bChk;
 }
-function aa(){
-    $("#getPhoneCode").on('click', phoneCodeBinOnclick);
+//
+//每1秒执行函式countDown()
+function countDown(){
+    $("#getPhoneCode").unbind();
+    $("#getPhoneCode").prop("disabled",true);
+    $("#phone_number_error").text("");
+    let times = 10;
+    let timer = setInterval(function(){
+        times = times - 1;
+        if(times>1){
+            $("#getPhoneCode").text(times+"秒后重新获取验证码");
+        }else{
+            clearInterval(times);
+            $("#getPhoneCode").prop("disabled",false);
+            $("#getPhoneCode").on('click', phoneCodeBinOnclick);
+            $("#getPhoneCode").text("点击获取手机验证码");
+        }
+    }, 1000);
 }
