@@ -8,8 +8,22 @@ $(document).ready(function(){
 
 function registerBinOnclick(){
     $("#register").click(function(){
-        let user_name = $("#user_name").val();
-        validationFormObjects("registerForm");
+        if(validationFormObjects("registerForm")){
+            $.ajax({
+                type: 'post',
+                url: '/user/register/',
+                data: $("#registerForm").serialize(),
+                dataType: "JOSN",
+                success: function(rdata) {
+                    alert(rdata.status);
+                    if(rdata.status){
+                        location.href = rdata.url
+                    }else{
+                        alert(rdata.error);
+                    }
+                }
+            });
+        };
     });
 }
 function validationFormObjects(formId) {
@@ -26,7 +40,6 @@ function validationFormObjects(formId) {
         let ctltype = $(ctl).attr("type").toLowerCase();
         if(ctltype != "hidden"){
             $("#"+errorId).text("");
-            alert(title);
             //验证不允许为空
             if($.trim(ctl.value) == ""){
                 $("#"+errorId).text(title+"不允许为空");
@@ -48,9 +61,8 @@ function validationFormObjects(formId) {
                 return false;
             }
             //验证密码必须字符与数字结合
-            if(ctltype == "password"){
+            if(ctltype == "password" || verificationType== "useraccount"){
                 let pw = /[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/;
-                alert(pw.test($.trim(ctl.value)));
                 if(!pw.test($.trim(ctl.value))){
                     $("#"+errorId).text(title+"格式不正确");
                     return false;
@@ -78,7 +90,7 @@ function validationFormObjects(formId) {
             }
         }
     }
-    return false;
+    return true;
 }
 //验证是否被注册
 function ifRegister(code){

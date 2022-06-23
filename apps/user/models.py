@@ -41,7 +41,7 @@ class UserAdminInfo(BaseModel):
     phone_number = models.CharField(verbose_name="手机号码", max_length=12)
     identity_card = models.CharField(verbose_name="身份证号", max_length=18, null=True, blank=True)
     address = models.CharField(verbose_name="详细住址", max_length=200, null=True, blank=True)
-    email = models.EmailField(verbose_name="电子邮箱", max_length=50)
+    email = models.EmailField(verbose_name="电子邮箱", max_length=50, null=True, blank=True)
     company = models.CharField(verbose_name="公司名称", max_length=100, null=True, blank=True)
     sales = models.DecimalField(verbose_name="销售总额", max_digits=20, decimal_places=2, default=0)
     registered_date = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)

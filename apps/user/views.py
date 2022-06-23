@@ -3,7 +3,8 @@ from django.shortcuts import render, HttpResponse
 from faker import Faker
 from apps.user import models
 from utils.produce_test_date import GetSysAdminInfo
-from django.forms import forms
+from django.http import JsonResponse
+from apps.user.forms.registerModelForm import RegisterModelForm
 from django.db.models import Q
 # Create your views here.
 
@@ -14,7 +15,14 @@ def login(request):
 
 
 def register(request):
-    return render(request, "register.html")
+    if request.method == "GET":
+        form = RegisterModelForm()
+        return render(request, "register.html", {"form": form})
+    if request.method == "POST":
+        form = RegisterModelForm(data=request.POST)
+        form.save()
+        return JsonResponse({'status': True, 'url': '/login/'})
+    return JsonResponse({'status': False, 'error': "提交错误"})
 
 
 def ifRegister(request):
