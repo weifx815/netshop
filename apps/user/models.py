@@ -6,7 +6,7 @@ from utils import options
 class UserInfo(BaseModel):
     """用户信息表"""
     user_name = models.CharField(verbose_name="姓名", max_length=100)
-    user_account = models.CharField(verbose_name="登录用户名", max_length=50)
+    user_account = models.CharField(verbose_name="登录用户名", max_length=50, db_index=True)
     password = models.CharField(verbose_name="密码", max_length=10, default='1234@abcd')
     gender = models.CharField(verbose_name="性别", choices=options.gender_choose, default='0', max_length=1)
     email = models.EmailField(verbose_name="电子邮箱", max_length=50)
@@ -32,7 +32,7 @@ class UserInfo(BaseModel):
 class UserAdminInfo(BaseModel):
     """后台店铺用户信息表"""
     user_name = models.CharField(verbose_name="姓名", max_length=100)
-    user_account = models.CharField(verbose_name="登录用户名", max_length=50)
+    user_account = models.CharField(verbose_name="登录用户名", max_length=50, db_index=True)
     password = models.CharField(verbose_name="密码", max_length=10, default='root')
     province = models.CharField(verbose_name="所在省", max_length=100, null=True, blank=True)
     province_code = models.CharField(verbose_name='所在省代码', max_length=50, null=True, blank=True)
@@ -58,7 +58,7 @@ class UserAdminInfo(BaseModel):
 class SysAdminInfo(BaseModel):
     """系统后台管理员表信息"""
     user_name = models.CharField(verbose_name="姓名", max_length=100)
-    user_account = models.CharField(verbose_name="登录用户名", max_length=50)
+    user_account = models.CharField(verbose_name="登录用户名", max_length=50, db_index=True)
     password = models.CharField(verbose_name="密码", max_length=10, default='admin')
     phone_number = models.CharField(verbose_name="手机号码", max_length=12)
     recent_date = models.DateTimeField(verbose_name="最近一次登录时间", auto_now=True)

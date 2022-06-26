@@ -7,11 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>IDOG商城-登陆</title>
+    <title>IDOG社区-登陆</title>
     <!-- Custom fonts for this template-->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'vendor/jquery/jquery.js'  %}"></script>
+    <script type="text/javascript" src="{% static 'js/validationFormObjects.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/user/login.js' %}"></script>
 </head>
 <body class="bg-gradient-primary">
     <div class="container">
@@ -26,32 +29,36 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">IDOG商城-欢迎您回来</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">IDOG社区-欢迎您回来</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" name="loginForm" id="loginForm" action="/user/login/" method="POST" >
+                                        {% csrf_token %}
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="请输入用户名...">
+                                            <input type="input" class="form-control form-control-user"
+                                                id="user_account" name="user_account" title="账号" maxlength="20" minlength="5"
+                                                placeholder="请输入用户名、手机号、邮箱...">
+                                            <span id="user_account_error" style="font-size: 10px;font-style: normal;color: red;margin-left: 25px"></span>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="请输入密码...">
+                                                name="password" id="password" title="密码" autocomplete="off"
+                                                   placeholder="请输入密码..." maxlength="8" minlength="6">
+                                            <span id="password_error" style="font-size: 10px;font-style: normal;color: red;margin-left: 25px">{{ form.password.errors.0 }}</span>
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">记住密码</label>
+                                                <input type="checkbox" class="custom-control-input" name="isadmin" id="isadmin" value="Y">
+                                                <label class="custom-control-label" for="isadmin">是否系统管理员</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                            登陆
+                                        <a class="btn btn-primary btn-user btn-block" id="gologin">
+                                            登 陆
                                         </a>
                                         <hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
+                                        <a href="index2.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
                                         </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                        <a href="index2.html" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                         </a>
                                     </form>

@@ -23,4 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('r^login/', apps.user.views.login),
     path('user/', include(('apps.user.urls', 'user'), namespace='user')),
+    path('index/', apps.user.views.index),
+    path('menu/', apps.user.views.menu),
 ]

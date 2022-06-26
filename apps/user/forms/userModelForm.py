@@ -9,3 +9,9 @@ class RegisterModelForm(forms.ModelForm):
     class Meta:
         model = models.UserAdminInfo
         fields = ['user_name', 'user_account', 'password', 'phone_number', 'email', 'repeatPassword', 'phone_code']
+
+
+class LoginForm(forms.Form):
+    user_account = forms.CharField(label="用户名", required=True)
+    password = forms.CharField(label="密码", required=True)
+    isadmin = forms.CharField(label="是否管理员", required=False)

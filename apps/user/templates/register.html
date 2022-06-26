@@ -12,8 +12,8 @@
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
-    <script type="text/javascript" src="{% static 'vendor/jquery/jquery.js'  %}"></script>
-    <script type="text/javascript" src="{% static 'vendor/jquery/jquery.timers-1.2.js'  %}"></script>
+    <script type="text/javascript" src="{% static 'vendor/jquery/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/validationFormObjects.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/user/register.js' %}"></script>
 </head>
 
@@ -29,7 +29,7 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">欢迎注册成为IDOG商城用户</h1>
+                                <h1 class="h4 text-gray-900 mb-4">欢迎注册成为IDOG社区用户</h1>
                             </div>
                             <form class="user" action="/user/register/" method="post" id="registerForm" name="registerForm">
                                 {% csrf_token %}
@@ -91,7 +91,7 @@
                                 <a class="small" href="#" onclick="aa();">忘记密码?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">已有账号? 开始登陆!</a>
+                                <a class="small" href="/user/login/">已有账号? 开始登陆!</a>
                             </div>
                         </div>
                     </div>
