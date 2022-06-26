@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">系统菜单列表</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>菜单名</th>
+                                            <th>菜单代码</th>
+                                            <th>菜单级别</th>
+                                            <th>所属父级</th>
+                                            <th>菜单地址</th>
+                                            <th>有效状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>菜单名</th>
+                                            <th>菜单代码</th>
+                                            <th>菜单级别</th>
+                                            <th>所属父级</th>
+                                            <th>菜单地址</th>
+                                            <th>有效状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    {% for obj in menu_list %}
+                                        <tr>
+                                            <td>{{ obj.menu_name }}</td>
+                                            <td>{{ obj.menu_code }}</td>
+                                            <td>{{ obj.menu_level }}</td>
+                                            <td>{{ obj.menu_parent_code }}</td>
+                                            <td>{{ obj.menu_url }}</td>
+                                            <td>{{ obj.menu_status }}</td>
+                                            <td>
+                                                <a href="###" onclick="">编辑</a>&nbsp;&nbsp;
+                                                <a href="###" onclick="">删除</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+{% endblock %}

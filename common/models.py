@@ -65,3 +65,56 @@ class SysOperationLog(BaseModel):
         db_table = 'sys_operate_log'
         verbose_name = '系统操作日志信息表'
         verbose_name_plural = verbose_name
+
+
+class SysMenu(BaseModel):
+    """系统菜单表"""
+    menu_name = models.CharField(verbose_name="菜单名称", max_length=100)
+    menu_code = models.CharField(verbose_name="菜单编号", max_length=20)
+    menu_level = models.CharField(verbose_name="菜单级别", max_length=2)
+    menu_parent_code = models.CharField(verbose_name="菜单父级编号", max_length=20)
+    menu_url = models.CharField(verbose_name="菜单路径", max_length=200, null=True, blank=True)
+    menu_img = models.CharField(verbose_name="菜单图片路径", max_length=200, null=True, blank=True)
+    menu_status = models.CharField(verbose_name="菜单有效状态(默认Y有效)", choices=options.valid_choose, default='Y', max_length=1)
+
+    class Meta:
+        """系统菜单表"""
+        db_table = 'sys_menu'
+        verbose_name = '系统菜单表'
+        verbose_name_plural = verbose_name
+
+
+class SysRole(BaseModel):
+    """系统角色表"""
+    role_name = models.CharField(verbose_name="角色名称", max_length=100)
+    role_status = models.CharField(verbose_name="角色有效状态(默认Y有效)", choices=options.valid_choose, default='Y', max_length=1)
+
+    class Meta:
+        """系统角色表"""
+        db_table = 'sys_role'
+        verbose_name = '系统角色表'
+        verbose_name_plural = verbose_name
+
+
+class SysRoleMenu(BaseModel):
+    """系统角色菜单关系表"""
+    role_id = models.CharField(verbose_name="角色ID", max_length=50)
+    menu_id = models.CharField(verbose_name="菜单ID", max_length=50)
+
+    class Meta:
+        """系统角色菜单关系表"""
+        db_table = 'sys_role_menu'
+        verbose_name = '系统角色菜单关系表'
+        verbose_name_plural = verbose_name
+
+
+class SysUserRole(BaseModel):
+    """系统用户角色关系表"""
+    user_id = models.CharField(verbose_name="用户ID", max_length=50)
+    role_id = models.CharField(verbose_name="角色ID", max_length=50)
+
+    class Meta:
+        """系统用户角色关系表"""
+        db_table = 'sys_user_role'
+        verbose_name = '系统用户角色关系表'
+        verbose_name_plural = verbose_name

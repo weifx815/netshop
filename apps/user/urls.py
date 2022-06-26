@@ -22,4 +22,6 @@ urlpatterns = [
     path('register/', views.register),
     path('register/validation/', views.ifRegister),
     path('register/phonecode/', views.getPhoneCode),
+    path('userlist/', views.userList),
+
 ]

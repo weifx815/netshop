@@ -12,6 +12,8 @@
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <!-- 列表样式-->
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -43,9 +45,9 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">用户管理</a>
-                        <a class="collapse-item" href="cards.html">菜单管理</a>
-                        <a class="collapse-item" href="cards.html">角色管理</a>
+                        <a class="collapse-item" href="/user/userlist/">用户管理</a>
+                        <a class="collapse-item" href="/common/menu/">菜单管理</a>
+                        <a class="collapse-item" href="/common/rose/">角色管理</a>
                     </div>
                 </div>
             </li>
@@ -385,7 +387,12 @@
     <!-- Page level custom scripts -->
     <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
     <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+<!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
 
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
 </body>
 
 </html>

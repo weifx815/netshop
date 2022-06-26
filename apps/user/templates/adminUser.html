@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">社区用户列表</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>用户名</th>
+                                            <th>公司名称</th>
+                                            <th>手机号</th>
+                                            <th>账号</th>
+                                            <th>注册日期</th>
+                                            <th>电子邮箱</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>用户名</th>
+                                            <th>公司名称</th>
+                                            <th>手机号</th>
+                                            <th>账号</th>
+                                            <th>注册日期</th>
+                                            <th>电子邮箱</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    {% for obj in user_list %}
+                                        <tr>
+                                            <td>{{ obj.user_name }}</td>
+                                            <td>{{ obj.company }}</td>
+                                            <td>{{ obj.phone_number }}</td>
+                                            <td>{{ obj.user_account }}</td>
+                                            <td>{{ obj.registered_date | date:"Y-m-d"}}</td>
+                                            <td>{{ obj.email }}</td>
+                                            <td><a href="###" onclick="">锁定</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+{% endblock %}

@@ -36,9 +36,9 @@ def index(request):
     return render(request, "index.html")
 
 
-def menu(request):
-    print("已经进入menu.html")
-    return render(request, "base.html")
+def userList(request):
+    user_list = models.UserAdminInfo.objects.all()
+    return render(request, "adminUser.html", {"user_list": user_list})
 
 
 def register(request):
@@ -81,4 +81,28 @@ def fakedata(request):
                                        user_account=info.user_account, phone_number=info.phone_number,
                                        recent_date=info.recent_date)
     return HttpResponse(info.user_name+"可以注册了")
+
+
+def createUser(request):
+    fake = Faker("zh-CN")
+    name = fake.name()
+    models.UserAdminInfo.objects.create(
+            user_name=name,
+            user_account=fake.password(length=8, special_chars=False, digits=True, upper_case=False, lower_case=True),
+            password=fake.password(length=8, special_chars=False, digits=True, upper_case=False, lower_case=True),
+            province=fake.province(),
+            province_code=fake.random_number(digits=2),
+            city=fake.city(),
+            city_code=fake.random_number(digits=4),
+            phone_number=fake.phone_number(),
+            identity_card=fake.ssn(),
+            address=fake.address(),
+            email=fake.email(),
+            company=fake.company(),
+            sales=fake.pyint(),
+            registered_date=fake.date_this_month(),
+            login_frequency=fake.random_number(digits=2),
+            recent_date=fake.date_this_month(),
+            valid_status="Y")
+    return HttpResponse(name+"可以注册了")
 
