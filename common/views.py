@@ -11,3 +11,8 @@ def userMenu(request):
 def userRose(request):
     role_list = models.SysRole.objects.all()
     return render(request, "sysRole.html", {"role_list": role_list})
+
+
+def menuEdit(request):
+    print("进来了=================================")
+    return render(request, "menuEdit.html")

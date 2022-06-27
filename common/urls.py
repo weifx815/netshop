@@ -17,8 +17,9 @@ from django.urls import path
 from common import views
 
 urlpatterns = [
-    # 前段访问 /common/login/
+    # 前段访问 /common/menu/
     path('menu/', views.userMenu),
     path('rose/', views.userRose),
+    path('menu/menuEdit/', views.menuEdit),
 
 ]
