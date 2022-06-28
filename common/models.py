@@ -71,8 +71,8 @@ class SysMenu(BaseModel):
     """系统菜单表"""
     menu_name = models.CharField(verbose_name="菜单名称", max_length=100)
     menu_code = models.CharField(verbose_name="菜单编号", max_length=20)
-    menu_level = models.CharField(verbose_name="菜单级别", choices=options.valid_choose, default='1', max_length=2)
-    menu_parent_code = models.CharField(verbose_name="菜单父级编号", default='0', max_length=20)
+    menu_level = models.CharField(verbose_name="菜单级别", choices=options.menu_level, default='1', max_length=2)
+    menu_parent_code = models.CharField(verbose_name="菜单父级编号", default='0', max_length=20, null=True, blank=True)
     menu_url = models.CharField(verbose_name="菜单路径", max_length=200, null=True, blank=True)
     menu_img = models.CharField(verbose_name="菜单图片路径", max_length=200, null=True, blank=True)
     menu_status = models.CharField(verbose_name="菜单有效状态(默认Y有效)", choices=options.valid_choose, default='Y', max_length=1)

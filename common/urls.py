@@ -21,5 +21,6 @@ urlpatterns = [
     path('menu/', views.userMenu),
     path('rose/', views.userRose),
     path('menu/menuEdit/', views.menuEdit),
+    path('menu/save/', views.menuSave),
 
 ]

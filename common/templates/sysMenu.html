@@ -5,7 +5,7 @@
     <div class="card shadow mb-4">
         <div class="d-sm-flex align-items-center justify-content-between mb-0">
             <h1 class="h5 mb-0 text-gray-800">系统菜单管理</h1>
-            <a href="#" data-toggle="modal" onclick="saveMenuBinOnclick()"
+            <a data-toggle="modal" onclick="fngotomenupage()"
                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">新增</a>
         </div>
         <div class="card-body">
@@ -38,10 +38,10 @@
                         <tr>
                             <td>{{ obj.menu_name }}</td>
                             <td>{{ obj.menu_code }}</td>
-                            <td>{{ obj.menu_level }}</td>
+                            <td>{{ obj.get_menu_level_display }}</td>
                             <td>{{ obj.menu_parent_code }}</td>
                             <td>{{ obj.menu_url }}</td>
-                            <td>{{ obj.menu_status }}</td>
+                            <td>{{ obj.get_menu_status_display }}</td>
                             <td>
                                 <a href="###" onclick="">编辑</a>&nbsp;&nbsp;
                                 <a href="###" onclick="">删除</a>

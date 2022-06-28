@@ -13,6 +13,7 @@ function registerBinOnclick(){
                 type: 'post',
                 url: '/user/register/',
                 data: $("#registerForm").serialize(),
+                async: true,
                 dataType: "JOSN",
                 success: function(rdata) {
                     if(rdata.status){
@@ -21,6 +22,7 @@ function registerBinOnclick(){
                         alert(rdata.error);
                     }
                 }
+
             });
         };
     });

@@ -7,6 +7,7 @@
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'layer/layer.js' %}" charset="utf-8"></script>
     <script src="{% static 'js/common/menu.js' %}"></script>
 </head>
@@ -16,54 +17,56 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <form name="menuForm" id="menuForm" action="/common/saveMenu/" method="POST" >
+                    {% csrf_token %}
                       <div class="form-group row">
                         <label for="inputEmail3" class="col-sm-3 col-form-label">菜单编号</label>
                         <div class="col-sm-8">
-                          <input type="input" class="form-control" id="" placeholder="">
+                          <input type="input" class="form-control" name="menu_code" id="menu_code" placeholder="菜单编号">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword3" class="col-sm-3 col-form-label">菜单名称</label>
                         <div class="col-sm-8">
-                          <input type="input" class="form-control" id="" placeholder="">
+                          <input type="input" class="form-control" name="menu_name" id="menu_name" placeholder="菜单名称">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword3" class="col-sm-3 col-form-label">菜单路径</label>
                         <div class="col-sm-8">
-                          <input type="input" class="form-control" id="" placeholder="">
+                          <input type="input" class="form-control" name="menu_url" id="menu_url" placeholder="菜单路径">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword3" class="col-sm-3 col-form-label">上级菜单</label>
                         <div class="col-sm-8">
-                          <select class="selectpicker" data-style="btn-primary">
+                          <select class="selectpicker" name="menu_parent_code" id="menu_parent_code" data-style="btn-primary">
                             <option value="0">--请选择--</option>
-                            <option value="1">系统配置</option>
-                            <option value="2">系统管理</option>
-                            <option value="3">统计分析</option>
+                              {% for obj in qmenulsit %}
+                                <option value="{{ obj.menu_code }}">{{ obj.menu_name }}</option>
+                              {% endfor %}
                           </select>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputPassword3" class="col-sm-3 col-form-label">菜单图片路径</label>
                         <div class="col-sm-8">
-                          <input type="input" class="form-control" id="" placeholder="">
+                          <input type="input" class="form-control" name="menu_img" id="menu_img" placeholder="菜单图片路径">
+                            <span id="menu_img_error" style="font-size: 10px;font-style: normal;color: red;margin-left: 25px">{{ menu_form.menu_img.errors.0 }}</span>
                         </div>
                       </div>
                       <fieldset class="form-group">
                         <div class="row">
                           <legend class="col-form-label col-sm-3 pt-0">菜单级别</legend>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineCheckbox1" value="1">
+                              <input class="form-check-input" type="radio" name="menu_level" id="menu_level_1" value="1">
                               <label class="form-check-label" for="inlineCheckbox1">一级</label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineCheckbox2" value="2">
+                              <input class="form-check-input" type="radio" name="menu_level" id="menu_level_2" value="2">
                               <label class="form-check-label" for="inlineCheckbox2">二级</label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineCheckbox3" value="3">
+                              <input class="form-check-input" type="radio" name="menu_level" id="menu_level_3" value="3">
                               <label class="form-check-label" for="inlineCheckbox3">三级</label>
                             </div>
                         </div>
@@ -72,11 +75,11 @@
                         <div class="row">
                           <legend class="col-form-label col-sm-3 pt-0">有效状态</legend>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="menu_status" id="menu_status1" value="1">
+                              <input class="form-check-input" type="radio" name="menu_status" id="menu_status1" value="Y">
                               <label class="form-check-label" for="inlineCheckbox1">有效</label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="menu_status" id="menu_status2" value="2">
+                              <input class="form-check-input" type="radio" name="menu_status" id="menu_status2" value="N">
                               <label class="form-check-label" for="inlineCheckbox2">无效</label>
                             </div>
                         </div>
