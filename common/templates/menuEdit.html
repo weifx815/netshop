@@ -41,7 +41,7 @@
                         <div class="col-sm-8">
                           <select class="selectpicker" name="menu_parent_code" id="menu_parent_code" data-style="btn-primary">
                             <option value="0">--请选择--</option>
-                              {% for obj in qmenulsit %}
+                              {% for obj in menu_list %}
                                 <option value="{{ obj.menu_code }}">{{ obj.menu_name }}</option>
                               {% endfor %}
                           </select>
