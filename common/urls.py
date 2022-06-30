@@ -18,9 +18,11 @@ from common import views
 
 urlpatterns = [
     # 前段访问 /common/menu/
-    path('menu/', views.userMenu),
-    path('rose/', views.userRose),
+    path('menu/list/', views.MenuList),
     path('menu/menuEdit/', views.menuEdit),
-    path('menu/save/', views.menuSave),
-
+    path('menu/add/', views.menuAdd),
+    path('menu/edit/<str:mid>/', views.menuEdit),
+    path('menu/view/<str:mid>/', views.menuView),
+    path('menu/delete/<str:mid>/', views.menuDelete),
+    path('rose/', views.userRose),
 ]

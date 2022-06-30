@@ -5,7 +5,7 @@ from common.forms import menuForm
 # Create your views here.
 
 
-def userMenu(request):
+def MenuList(request):
     return render(request, "sysMenu.html", {"menu_list": get_Menu_List("ALL")})
 
 
@@ -14,7 +14,7 @@ def userRose(request):
     return render(request, "sysRole.html", locals())
 
 
-def menuEdit(request):
+def menuEdit(request, mid):
     get_Menu_List('1')
     return render(request, "menuEdit.html", locals())
 
@@ -27,7 +27,7 @@ def get_Menu_List(menu_level):
     return menu_list
 
 
-def menuSave(request):
+def menuAdd(request):
     if request.method == "GET":
         menu_form = menuForm.MenuModelForm()
         return render(request, "menuEdit.html", {"menu_form": menu_form, "menu_list": get_Menu_List('1')})
@@ -35,6 +35,18 @@ def menuSave(request):
         menu_form = menuForm.MenuModelForm(data=request.POST)
         if menu_form.is_valid():
             menu_form.save()
-            return JsonResponse({'status': True, 'url': '/common/menu/'})
+            return JsonResponse({'status': True, 'url': '/common/menu/list/'})
         else:
             return render(request, "menuEdit.html", {"menu_form": menu_form, "menu_list": get_Menu_List('1')})
+
+
+def menuView(request, mid):
+    obj = models.SysMenu.objects.filter(id=mid).first()
+    return render(request, "menuView.html", {"obj": obj})
+
+
+def menuDelete(request, mid):
+    obj = models.SysMenu.objects.filter(id=mid).first()
+    obj.delete()
+    return redirect("/common/menu/list/")
+
