@@ -2,11 +2,11 @@
  * 菜单操作相关模块
  */
 $(document).ready(function(){
-    $("#saveMenuForm").click(function(){
+    $("#saveRoleForm").click(function(){
         $.ajax({
             type: 'post',
-            url: '/common/menu/add/',
-            data: $("#menuForm").serialize(),
+        url: '/common/role/add/',
+            data: $("#roleForm").serialize(),
             async: true,
             dataType: "JOSN",
             success: function(rdata) {
@@ -30,17 +30,17 @@ $(document).ready(function(){
 /**
  * 进入菜单信息页面
  */
-function fngotomenupage(type,code){
-    let url = '/common/menu/'+type+'/'+code;
+function fngotorolepage(type,code){
+    let url = '/common/role/'+type+'/'+code;
     layer.open({
-        id:1,
+        id:2,
         type: 2,//iframe
-        title: ['菜单信息', 'font-size:14px;font-weight:bold;'],
+        title: ['角色信息', 'font-size:14px;font-weight:bold;'],
         shadeClose: false,
         shade: false,
         fixed: false,
         maxmin: true, //开启最大化最小化按钮
-        area: ['600px','600px'],//弹出层宽度
+        area: ['600px','450px'],//弹出层宽度
         content: url,
         offset:'40px',//弹出层位置离顶100px
         success:function(index, layero){
@@ -54,7 +54,7 @@ function fngotomenupage(type,code){
     });
 }
 //关闭iframe
-function fnCloseMenuIframe(){
+function fnCloseIframe(){
     let index = parent.layer.getFrameIndex(window.name); //获取窗口索引
     parent.layer.close(index);
 };
@@ -62,9 +62,9 @@ function fnCloseMenuIframe(){
 /**
  * 删除菜单
  */
-function fnDeleteMenu(type, code){
-    let url = '/common/menu/'+type+'/'+code;
-    layer.confirm('该删除会级联删除下级菜单，确定要删除？', {
+function fnDeleteRole(type, code){
+    let url = '/common/role/'+type+'/'+code;
+    layer.confirm('确定要删除？', {
           btn: ['确定','取消'] //按钮
         }, function(){
             $.ajax({

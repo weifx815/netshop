@@ -87,7 +87,8 @@ class SysMenu(BaseModel):
 class SysRole(BaseModel):
     """系统角色表"""
     role_name = models.CharField(verbose_name="角色名称", max_length=100)
-    role_status = models.CharField(verbose_name="角色有效状态(默认Y有效)", choices=options.valid_choose, default='Y', max_length=1)
+    role_describe = models.CharField(verbose_name='角色描述', max_length=500, null=True, blank=True)
+    role_status = models.CharField(verbose_name="角色状态", choices=options.valid_choose, default='Y', max_length=1)
 
     class Meta:
         """系统角色表"""

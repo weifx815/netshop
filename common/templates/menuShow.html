@@ -1,0 +1,21 @@
+<!-- Nav Item - Pages Collapse Menu -->
+{% for menu_1 in menu_list_1 %}
+<li class="nav-item">
+    {% if menu_1.menu_level == '1' %}
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-fw {{ menu_1.menu_img }}"></i>
+        <span>{{ menu_1.menu_name }}</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+        {% for menu_2 in menu_list_2 %}
+            {% if menu_2.menu_parent_code == menu_1.menu_code %}
+            <a class="collapse-item" href="{{ menu_2.menu_url }}">{{ menu_2.menu_name }}</a>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</li>
+{% endfor %}

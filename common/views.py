@@ -1,27 +1,24 @@
 from django.shortcuts import render, HttpResponse, redirect
 from common import models
 from django.http import JsonResponse
-from common.forms import menuForm
+from common.forms import commonForm
 # Create your views here.
 
 
 def MenuList(request):
-    return render(request, "sysMenu.html", {"menu_list": get_Menu_List("ALL")})
-
-
-def userRose(request):
-    role_list = models.SysRole.objects.all()
-    return render(request, "sysRole.html", locals())
+    user_id = request.session["userinfo"].get("id")
+    return render(request, "menuList.html", {"menu_list": get_Menu_List("ALL"), "user_id": str(user_id)})
 
 
 def menuEdit(request, mid):
-    get_Menu_List('1')
+    obj = models.SysMenu.objects.filter(id=mid).first()
+    menu_list = get_Menu_List('1')
     return render(request, "menuEdit.html", locals())
 
 
 def get_Menu_List(menu_level):
     if menu_level == "ALL":
-        menu_list = models.SysMenu.objects.all().order_by('menu_code')
+        menu_list = models.SysMenu.objects.all().order_by('-update_time')
     else:
         menu_list = models.SysMenu.objects.filter(menu_level=menu_level, menu_status='Y').order_by('menu_code')
     return menu_list
@@ -29,10 +26,10 @@ def get_Menu_List(menu_level):
 
 def menuAdd(request):
     if request.method == "GET":
-        menu_form = menuForm.MenuModelForm()
+        menu_form = commonForm.MenuModelForm()
         return render(request, "menuEdit.html", {"menu_form": menu_form, "menu_list": get_Menu_List('1')})
     if request.method == "POST":
-        menu_form = menuForm.MenuModelForm(data=request.POST)
+        menu_form = commonForm.MenuModelForm(data=request.POST)
         if menu_form.is_valid():
             menu_form.save()
             return JsonResponse({'status': True, 'url': '/common/menu/list/'})
@@ -50,3 +47,22 @@ def menuDelete(request, mid):
     obj.delete()
     return redirect("/common/menu/list/")
 
+
+def RoleList(request):
+    role_list = models.SysRole.objects.all()
+    return render(request, "roleList.html", locals())
+
+
+def RoleAdd(request):
+    role_from = commonForm.RoleModelForm()
+    return render(request, "roleEdit.html", locals())
+
+
+def RoleEdit(request, rid):
+    role_list = models.SysRole.objects.all()
+    return render(request, "roleEdit.html", locals())
+
+
+def RoleDelete(request, rid):
+    role_list = models.SysRole.objects.all()
+    return render(request, "roleEdit.html", locals())
