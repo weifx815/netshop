@@ -3,9 +3,10 @@
  */
 $(document).ready(function(){
     $("#saveMenuForm").click(function(){
+        let url = '/common/menu/'+$("#form_type").val()+'/'+$("#obj").val()+"";
         $.ajax({
             type: 'post',
-            url: '/common/menu/add/',
+            url: url,
             data: $("#menuForm").serialize(),
             async: true,
             dataType: "JOSN",
@@ -37,7 +38,7 @@ function fngotomenupage(type,code){
         type: 2,//iframe
         title: ['菜单信息', 'font-size:14px;font-weight:bold;'],
         shadeClose: false,
-        shade: false,
+        shade: 0.5,
         fixed: false,
         maxmin: true, //开启最大化最小化按钮
         area: ['600px','600px'],//弹出层宽度

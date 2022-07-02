@@ -3,27 +3,37 @@
  */
 $(document).ready(function(){
     $("#saveRoleForm").click(function(){
-        $.ajax({
-            type: 'post',
-        url: '/common/role/add/',
-            data: $("#roleForm").serialize(),
-            async: true,
-            dataType: "JOSN",
-            success: function(rdata) {
+        let url = '/common/role/'+$("#form_type").val()+'/'+$("#obj").val()+"";
+        if(validationFormObjects("roleForm")){
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: $("#roleForm").serialize(),
+                async: true,
+                dataType: "JOSN",
+                success: function(rdata) {
 
-            },
-            error:function (rdata){
+                },
+                error:function (rdata){
 
-            },
-            complete:function (rdata){
-                if(rdata.status==200){
-                    fnCloseMenuIframe();
-                    window.parent.location.reload();
-                }else{
-                    layer.msg('提示：操作失败', {icon: 5});
+                },
+                complete:function (rdata){
+                    let obj = JSON.parse(rdata.responseText);
+                    if(obj.status==true){
+                        fnCloseIframe();
+                        window.parent.location.reload();
+                    }else if (obj.status==false){
+                        let errors = obj.errors;
+                        for(let key in errors){
+                            $("#"+key+"_error").text(errors[key])
+                        }
+                        layer.msg('提示：验证失败', {icon: 5});
+                    }else{
+                        layer.msg('提示：操作失败', {icon: 5});
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 });
 
@@ -37,7 +47,7 @@ function fngotorolepage(type,code){
         type: 2,//iframe
         title: ['角色信息', 'font-size:14px;font-weight:bold;'],
         shadeClose: false,
-        shade: false,
+        shade: 0.5,
         fixed: false,
         maxmin: true, //开启最大化最小化按钮
         area: ['600px','450px'],//弹出层宽度

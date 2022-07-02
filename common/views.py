@@ -13,6 +13,7 @@ def MenuList(request):
 def menuEdit(request, mid):
     obj = models.SysMenu.objects.filter(id=mid).first()
     menu_list = get_Menu_List('1')
+    form_type = "edit"
     return render(request, "menuEdit.html", locals())
 
 
@@ -27,7 +28,8 @@ def get_Menu_List(menu_level):
 def menuAdd(request):
     if request.method == "GET":
         menu_form = commonForm.MenuModelForm()
-        return render(request, "menuEdit.html", {"menu_form": menu_form, "menu_list": get_Menu_List('1')})
+        form_type = "add"
+        return render(request, "menuEdit.html", {"menu_form": menu_form, "menu_list": get_Menu_List('1'), "form_type": form_type})
     if request.method == "POST":
         menu_form = commonForm.MenuModelForm(data=request.POST)
         if menu_form.is_valid():
@@ -54,15 +56,38 @@ def RoleList(request):
 
 
 def RoleAdd(request):
-    role_from = commonForm.RoleModelForm()
-    return render(request, "roleEdit.html", locals())
+    if request.method == "GET":
+        role_from = commonForm.RoleModelForm()
+        form_type = "add"
+        return render(request, "roleEdit.html", locals())
+    if request.method == "POST":
+        role_from = commonForm.RoleModelForm(data=request.POST)
+        if role_from.is_valid():
+            role_from.save()
+            return JsonResponse({'status': True})
+        else:
+            return JsonResponse({'status': False, "errors": role_from.errors})
 
 
 def RoleEdit(request, rid):
-    role_list = models.SysRole.objects.all()
-    return render(request, "roleEdit.html", locals())
+    obj = models.SysRole.objects.filter(id=rid).first()
+    if request.method == "GET":
+        role_from = commonForm.RoleModelForm(instance=obj)
+        form_type = "edit"
+        return render(request, "roleEdit.html", locals())
+    if request.method == "POST":
+        role_from = commonForm.RoleModelForm(data=request.POST, instance=obj)
+        if role_from.is_valid():
+            role_from.save()
+            return JsonResponse({'status': True})
+        else:
+            return JsonResponse({'status': False, "errors": role_from.errors})
+
+
 
 
 def RoleDelete(request, rid):
-    role_list = models.SysRole.objects.all()
-    return render(request, "roleEdit.html", locals())
+    obj = models.SysRole.objects.filter(id=rid).first()
+    obj.delete()
+    return redirect("/common/role/list/")
+

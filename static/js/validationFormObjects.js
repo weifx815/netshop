@@ -10,7 +10,10 @@ function validationFormObjects(formId) {
         let minlength = $(ctl).attr("minlength");
         let maxlength = $(ctl).attr("maxlength");
         let errorId = id+"_error";
-        let ctltype = $(ctl).attr("type").toLowerCase();
+        let ctltype = $(ctl).attr("type");
+        if (ctltype != undefined){
+            ctltype = ctltype.toLowerCase();
+        }
         if(ctltype != "hidden"){
             $("#"+errorId).text("");
             //验证不允许为空

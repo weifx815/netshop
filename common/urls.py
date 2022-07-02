@@ -21,11 +21,11 @@ urlpatterns = [
     path('menu/list/', views.MenuList),
     path('menu/menuEdit/', views.menuEdit),
     path('menu/add/', views.menuAdd),
-    path('menu/edit/<str:mid>/', views.menuEdit),
+    path('menu/edit/<str:mid>', views.menuEdit),
     path('menu/view/<str:mid>/', views.menuView),
     path('menu/delete/<str:mid>/', views.menuDelete),
     path('role/list/', views.RoleList),
     path('role/add/', views.RoleAdd),
-    path('role/edit/<str:rid>/', views.RoleEdit),
+    path('role/edit/<str:rid>', views.RoleEdit),
     path('role/delete/<str:rid>/', views.RoleDelete),
 ]

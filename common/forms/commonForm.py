@@ -15,11 +15,14 @@ class RoleModelForm(forms.ModelForm):
         model = models.SysRole
         fields = ['role_name', 'role_describe', 'role_status']
 
-    def __int__(self, *args, **kwargs):
-        print("333333333334343434434")
-        super(RoleModelForm, self).__init__(*args, **kwargs)
-        print(self.fields.items())
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  # 初始化父类方法
+        print(self.fields)
         for name, field in self.fields.items():
-            print(name+"===="+field.label)
-            field.widget.attrs.update({"class": "form-control", "placeholder": field.label})
+            field.widget.attrs = {'class': 'form-control',
+                                  'placeholder': field.label,
+                                  'title': field.label,
+                                  'id': name}
+
+
 
