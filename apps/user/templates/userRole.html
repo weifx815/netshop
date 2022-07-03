@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html lang="en">
+<head>
+    <title>treeSelect demo</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'vendor/ztree/css/metroStyle.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'vendor/ztree/css/treeSelectStyle.css' %}">
+    <script src="{% static 'vendor/ztree/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vendor/ztree/js/jquery.ztree.all.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vendor/ztree/js/treeSelect.2.0.js' %}"></script>
+    <script type="text/javascript">
+        let zNodes = [
+            {id: 1, pId: 0, name: "火之国", open: true},
+            {id: 11, pId: 1, name: "木叶忍者", open: true},
+            {id: 111, pId: 11, name: "鸣人"},
+            {id: 112, pId: 11, name: "佐助"},
+            {id: 12, pId: 1, name: "木叶暗部"},
+            {id: 121, pId: 12, name: "鼬"},
+            {id: 122, pId: 12, name: "卡卡西"},
+            {id: 2, pId: 0, name: "沙之国", open: true},
+            {id: 21, pId: 2, name: "千代婆婆"},
+            {id: 26, pId: 2, name: "我爱罗"},
+            {id: 22, pId: 2, name: "沙之国忍者", open: true},
+            {id: 221, pId: 22, name: "手鞠"},
+            {id: 222, pId: 22, name: "勘九郎"},
+            {id: 3, pId: 0, name: "水之国"},
+            {id: 4, pId: 0, name: "土之国"}
+        ];
+        let defaults = {
+
+            zNodes: zNodes,
+            height: 233,
+            filter: true,
+            searchShowParent: true
+        };
+        let selectObj;
+        $(function () {
+            selectObj = $("#demo").treeSelect(defaults);
+            $("#btn1").click(function () {
+                console.log(selectObj.val());
+                $("#input1").val(JSON.stringify(selectObj.val()));
+                $("#input12").val(JSON.stringify(selectObj.text()));
+            })
+            $("#btn2").click(function () {
+                selectObj.val(JSON.parse($("#input2").val()))
+            })
+            $("#btn3").click(function () {
+                selectObj.destory();
+            })
+        })
+
+    </script>
+</head>
+
+<body style="padding: 100px;height: 1000px">
+<div style="height: 400px">
+    <table>
+        <caption>treeSelect2.0 示例</caption>
+        <tr>
+            <td scope="col">
+                demo
+            </td>
+            <td colspan="2" scope="colgroup">
+            <textarea id="demo" style="width: 300px;overflow:hidden;cursor: pointer" checks="1,11,2,23" type="text"
+                      readonly></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" id="btn1">获取选中值</button>
+            </td>
+            <td><textarea type="text" id="input1"></textarea><textarea type="text" id="input12"></textarea></td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" id="btn2">赋值</button>
+            </td>
+            <td colspan="2"><textarea type="text" id="input2">[1,2]</textarea></td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" id="btn3">销毁</button>
+            </td>
+            <td colspan="2"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

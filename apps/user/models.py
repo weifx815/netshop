@@ -46,7 +46,7 @@ class UserAdminInfo(BaseModel):
     sales = models.DecimalField(verbose_name="销售总额", max_digits=20, decimal_places=2, default=0)
     registered_date = models.DateTimeField(verbose_name="创建时间", auto_now_add=True)
     login_frequency = models.SmallIntegerField(verbose_name="登录次数", default=0)
-    recent_date = models.DateTimeField(verbose_name="最近一次登录时间", auto_now=True)
+    recent_date = models.DateTimeField(verbose_name="最近一次登录时间")
     valid_status = models.CharField(verbose_name="有效状态(默认Y有效)", choices=options.valid_choose, default='Y', max_length=1)
 
     class Meta:

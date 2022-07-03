@@ -10,7 +10,7 @@ $(document).ready(function(){
                 url: url,
                 data: $("#roleForm").serialize(),
                 async: true,
-                dataType: "JOSN",
+                dataType: "json",
                 success: function(rdata) {
 
                 },
@@ -81,7 +81,7 @@ function fnDeleteRole(type, code){
             type: 'get',
             url: url,
             async: true,
-            dataType: "JOSN",
+            dataType: "json",
             success: function(rdata) {
 
             },

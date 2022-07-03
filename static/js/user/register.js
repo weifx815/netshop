@@ -103,3 +103,45 @@ function passwordVerification(){
     }
     return true;
 }
+
+/**
+ * 解锁、锁定用户
+ */
+function fnLockUser(uid){
+    let title = $("#status_"+uid).attr("title");
+    let valid_status = $("#status_"+uid).attr("content");
+    layer.confirm("确定要"+title+"？", {
+          btn: ['确定','取消'] //按钮
+        }, function(){
+            $.ajax({
+                type: 'get',
+                url: '/user/lock/'+uid,
+                data:{"valid_status": valid_status},
+                async: true,
+                dataType: "json",
+                success: function(rdata) {
+
+                },
+                error:function (rdata){
+                    layer.msg('提示：'+title+'失败', {icon: 5});
+                },
+                complete:function (rdata){
+                    let obj = JSON.parse(rdata.responseText);
+                    if(obj.status==true){
+                        layer.msg('提示：'+title+'成功', {icon: 1});
+                        window.parent.location.reload();
+                    }else{
+                        layer.msg('提示：'+title+'失败', {icon: 5});
+                    }
+                }
+            });
+        }, function(){
+          //取消操作
+    });
+}
+/**
+ * 解锁、锁定用户
+ */
+function fnAddRole(uid){
+    window.location.href="/user/addrole/1/"
+}

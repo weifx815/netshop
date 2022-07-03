@@ -9,7 +9,7 @@ $(document).ready(function(){
             url: url,
             data: $("#menuForm").serialize(),
             async: true,
-            dataType: "JOSN",
+            dataType: "json",
             success: function(rdata) {
 
             },
@@ -72,7 +72,7 @@ function fnDeleteMenu(type, code){
             type: 'get',
             url: url,
             async: true,
-            dataType: "JOSN",
+            dataType: "json",
             success: function(rdata) {
 
             },
@@ -90,5 +90,5 @@ function fnDeleteMenu(type, code){
         });
         }, function(){
           //取消操作
-        });
+    });
 }

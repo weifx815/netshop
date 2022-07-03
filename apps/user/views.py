@@ -61,6 +61,20 @@ def ifRegister(request):
     return HttpResponse(flag)
 
 
+def userLock(request, uid):
+    fake = Faker("zh-CN")
+    valid_status = request.GET.get("valid_status")
+    user = models.UserAdminInfo.objects.get(id=uid)
+    user.valid_status = valid_status
+    user.save()
+    user.refresh_from_db()
+    return JsonResponse({'status': True})
+
+
+def addRole(request, uid):
+    return render(request, "userRole.html")
+
+
 def getPhoneCode(request):
     fake = Faker("zh-CN")
     code = request.GET.get("code")
@@ -100,7 +114,7 @@ def createUser(request):
             email=fake.email(),
             company=fake.company(),
             sales=fake.pyint(),
-            registered_date=fake.date_this_month(),
+            registered_date=fake.date_time(),
             login_frequency=fake.random_number(digits=2),
             recent_date=fake.date_this_month(),
             valid_status="Y")

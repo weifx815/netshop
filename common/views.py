@@ -84,8 +84,6 @@ def RoleEdit(request, rid):
             return JsonResponse({'status': False, "errors": role_from.errors})
 
 
-
-
 def RoleDelete(request, rid):
     obj = models.SysRole.objects.filter(id=rid).first()
     obj.delete()
