@@ -20,6 +20,7 @@ urlpatterns = [
     # 前段访问 /user/login/
     path('login/', views.login),
     path('register/', views.register),
+    path('register/info/', views.registerInfo),
     path('register/validation/', views.ifRegister),
     path('register/phonecode/', views.getPhoneCode),
     path('userlist/', views.userList),

@@ -83,6 +83,10 @@ def getPhoneCode(request):
     return HttpResponse(code)
 
 
+def registerInfo(request):
+    return render(request, "registerInfo.html")
+
+
 def fakedata(request):
     fake = Faker("zh-CN")
     GetSysAdminInfo.user_name = fake.name()
