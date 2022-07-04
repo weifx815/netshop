@@ -507,7 +507,7 @@
             }
             this.$el.attr("checks", checks);
             this.$el.val(text);
-            this.$el.attr("title", "缂栫爜:" + checks + ";鍚嶇О:" + text);
+            this.$el.attr("title", "菜单ID:" + checks + ";菜单名称:" + text);
         },
         getNodeName: function (node, texts) {
             if (this.options.textModel == 'simple') {

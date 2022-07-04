@@ -28,4 +28,6 @@ urlpatterns = [
     path('role/add/', views.RoleAdd),
     path('role/edit/<str:rid>', views.RoleEdit),
     path('role/delete/<str:rid>/', views.RoleDelete),
+    path('role/roleMenu/<str:rid>/', views.RoleMenu),
+    path('role/saveRoleMenu/', views.SaveRoleMenu),
 ]

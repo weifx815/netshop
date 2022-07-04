@@ -36,6 +36,7 @@
                             <td style="text-align: center">
                                 <img style="cursor:pointer" width="20px" height="20px" src="/static/img/edit.png" title="编辑" onclick="fngotorolepage('edit',{{ obj.id }})">&nbsp;&nbsp;
                                 <img style="cursor:pointer" width="20px" height="20px" src="/static/img/delete.png" title="删除" onclick="fnDeleteRole('delete', {{ obj.id }})">&nbsp;&nbsp;
+                                <img style="cursor:pointer" width="20px" height="20px" src="/static/img/menu.png" title="添加菜单" onclick="fngotorolepage('roleMenu', {{ obj.id }})">
                             </td>
                         </tr>
                     {% endfor %}

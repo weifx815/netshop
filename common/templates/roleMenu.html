@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<html lang="en">
+<head>
+    <title>添加菜单</title>
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/layer/layer.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/common/role.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'vendor/ztree/css/metroStyle.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'vendor/ztree/css/treeSelectStyle.css' %}">
+    <script src="{% static 'vendor/ztree/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vendor/ztree/js/jquery.ztree.all.js' %}"></script>
+    <script type="text/javascript" src="{% static 'vendor/ztree/js/treeSelect.2.0.js' %}"></script>
+    <script type="text/javascript">
+        let zNodes = [
+            {id: 10, pId: 0, name: "系统管理", open: true},
+            {id: 1010, pId: 10, name: "用户管理"},
+            {id: 1011, pId: 10, name: "菜单管理"},
+            {id: 1012, pId: 10, name: "角色管理"},
+            {id: 11, pId: 0, name: "系统配置", open: true},
+            {id: 1110, pId: 11, name: "码表管理"},
+            {id: 1111, pId: 11, name: "缓存管理"},
+            {id: 12, pId: 0, name: "统计分析", open: true},
+            {id: 1201, pId: 12, name: "销售额统计"},
+            {id: 1202, pId: 12, name: "货物统计"}
+        ];
+        let defaults = {
+            zNodes: zNodes,
+            height: 233,
+            filter: true,
+            searchShowParent: true
+        };
+        let selectObj;
+        $(function () {
+            selectObj = $("#menu").treeSelect(defaults);
+            $("#btn1").click(function () {
+                console.log(selectObj.val());
+                $("#input1").val(JSON.stringify(selectObj.val()));
+                $("#input12").val(JSON.stringify(selectObj.text()));
+            })
+            $("#btn2").click(function () {
+                selectObj.val(JSON.parse($("#input2").val()))
+            })
+            $("#btn3").click(function () {
+                selectObj.destory();
+            })
+        })
+function submitRoleMenuForm(){
+    let url = '/common/role/saveRoleMenu/';
+    let selectObj = $("#menu").treeSelect(defaults);
+    $("#menuIds").val(JSON.stringify(selectObj.val()));
+    $.ajax({
+        type: 'post',
+        url: url,
+        data: $("#RoleMenuForm").serialize(),
+        async: true,
+        dataType: "json",
+        success: function(rdata) {},
+        error:function (rdata){},
+        complete:function (rdata){
+            let obj = JSON.parse(rdata.responseText);
+            if(obj.status==true){
+                layer.msg('提示：提交成功', {icon: 1});
+                fnCloseIframe();
+                window.parent.location.reload();
+            }else if (obj.status==false){
+                layer.msg('提示：验证失败', {icon: 5});
+            }else{
+                layer.msg('提示：操作失败', {icon: 5});
+            }
+        }
+    });
+}
+
+    </script>
+</head>
+
+<body style="height: 1000px">
+<!-- 提示内容开始-->
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form name="RoleMenuForm" id="RoleMenuForm" action="" method="POST" >
+                <input type="hidden" id="rid" name="rid" value="{{ rid }}">
+                <input type="hidden" id="menuIds" name="menuIds" value="{{ menuIds }}">
+                {% csrf_token %}
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">角色对应菜单</label>
+                    <div class="col-sm-8">
+                        <textarea id="menu" style="width: 350px;height:100px;overflow:hidden;cursor: pointer"
+                                  checks="1010" class="form-control" readonly></textarea>
+                    </div>
+                  </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" href="#" onclick="submitRoleMenuForm()">确认</a>
+                <a class="btn btn-secondary" href="#" onclick="fnCloseIframe()">取消</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

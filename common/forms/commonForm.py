@@ -25,4 +25,9 @@ class RoleModelForm(forms.ModelForm):
                                   'id': name}
 
 
+class ROLEMenuModelForm(forms.ModelForm):
+
+    class Meta:
+        model = models.SysRoleMenu
+        fields = ['role_id', 'menu_id']
 

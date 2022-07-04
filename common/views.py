@@ -89,3 +89,22 @@ def RoleDelete(request, rid):
     obj.delete()
     return redirect("/common/role/list/")
 
+
+def RoleMenu(request, rid):
+    rid = rid
+    menu_list = models.SysRoleMenu.objects.filter(role_id=rid).values_list("menu_id")
+    menu_ids = ","
+    for menu in menu_list:
+        menu_id = str(menu)
+        menu_ids = menu_ids+menu_id+","
+        print(menu_ids)
+    return render(request, "roleMenu.html", locals())
+
+
+def SaveRoleMenu(request):
+    menu_ids = request.POST.get("menuIds").split("[")[1].split("]")[0].split(",")
+    rid = request.POST.get("rid")
+    models.SysRoleMenu.objects.filter(role_id=rid).delete()
+    for mid in menu_ids:
+        models.SysRoleMenu.objects.create(menu_id=mid, role_id=rid)
+    return JsonResponse({'status': True})
