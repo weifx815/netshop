@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from common import models
 from django.http import JsonResponse
 from common.forms import commonForm
+import json
 # Create your views here.
 
 
@@ -92,18 +93,28 @@ def RoleDelete(request, rid):
 
 def RoleMenu(request, rid):
     rid = rid
-    menu_list = models.SysRoleMenu.objects.filter(role_id=rid).values_list("menu_id")
-    menu_ids = ","
+    role_list = models.SysRoleMenu.objects.filter(role_id=rid)
+    role_ids = []
+    for role in role_list:
+        role_ids.append(role.menu_id)
+    menu_ids = ",".join(role_ids)
+    menu_list = get_Menu_List("ALL")
+    json_menu = []
     for menu in menu_list:
-        menu_id = str(menu)
-        menu_ids = menu_ids+menu_id+","
-        print(menu_ids)
+        menus = {}
+        menus["id"] = menu.menu_code
+        menus["pId"] = menu.menu_parent_code
+        menus["name"] = menu.menu_name
+        json_menu.append(menus)
+    jsonarr = json.dumps(json_menu, ensure_ascii=False)
     return render(request, "roleMenu.html", locals())
 
 
 def SaveRoleMenu(request):
     menu_ids = request.POST.get("menuIds").split("[")[1].split("]")[0].split(",")
     rid = request.POST.get("rid")
+    if len(menu_ids) == 0:
+        return JsonResponse({'status': False})
     models.SysRoleMenu.objects.filter(role_id=rid).delete()
     for mid in menu_ids:
         models.SysRoleMenu.objects.create(menu_id=mid, role_id=rid)
