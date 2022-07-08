@@ -139,9 +139,3 @@ function fnLockUser(uid){
           //取消操作
     });
 }
-/**
- * 解锁、锁定用户
- */
-function fnAddRole(uid){
-    window.location.href="/user/addrole/1/"
-}

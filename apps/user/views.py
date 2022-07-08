@@ -71,10 +71,6 @@ def userLock(request, uid):
     return JsonResponse({'status': True})
 
 
-def addRole(request, uid):
-    return render(request, "userRole.html")
-
-
 def getPhoneCode(request):
     fake = Faker("zh-CN")
     code = request.GET.get("code")

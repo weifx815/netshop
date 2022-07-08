@@ -70,7 +70,7 @@ class SysOperationLog(BaseModel):
 class SysMenu(BaseModel):
     """系统菜单表"""
     menu_name = models.CharField(verbose_name="菜单名称", max_length=100)
-    menu_code = models.CharField(verbose_name="菜单编号", max_length=20)
+    menu_code = models.IntegerField(verbose_name="菜单编号", max_length=20)
     menu_level = models.CharField(verbose_name="菜单级别", choices=options.menu_level, default='1', max_length=2)
     menu_parent_code = models.CharField(verbose_name="菜单父级编号", default='0', max_length=20, null=True, blank=True)
     menu_url = models.CharField(verbose_name="菜单路径", max_length=200, null=True, blank=True)

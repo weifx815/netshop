@@ -25,6 +25,5 @@ urlpatterns = [
     path('register/phonecode/', views.getPhoneCode),
     path('userlist/', views.userList),
     path('lock/<str:uid>', views.userLock),
-    path('addrole/<str:uid>/', views.addRole),
 
 ]

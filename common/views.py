@@ -20,7 +20,7 @@ def menuEdit(request, mid):
 
 def get_Menu_List(menu_level):
     if menu_level == "ALL":
-        menu_list = models.SysMenu.objects.all().order_by('-update_time')
+        menu_list = models.SysMenu.objects.all().order_by('-id')
     else:
         menu_list = models.SysMenu.objects.filter(menu_level=menu_level, menu_status='Y').order_by('menu_code')
     return menu_list
@@ -97,14 +97,14 @@ def RoleMenu(request, rid):
     role_ids = []
     for role in role_list:
         role_ids.append(role.menu_id)
-    menu_ids = ",".join(role_ids)
+    menu_ids = ','.join(role_ids)
     menu_list = get_Menu_List("ALL")
     json_menu = []
     for menu in menu_list:
-        menus = {}
-        menus["id"] = menu.menu_code
-        menus["pId"] = menu.menu_parent_code
-        menus["name"] = menu.menu_name
+        menus = dict()
+        menus['id'] = menu.menu_code
+        menus['pId'] = menu.menu_parent_code
+        menus['name'] = menu.menu_name
         json_menu.append(menus)
     jsonarr = json.dumps(json_menu, ensure_ascii=False)
     return render(request, "roleMenu.html", locals())
@@ -119,3 +119,16 @@ def SaveRoleMenu(request):
     for mid in menu_ids:
         models.SysRoleMenu.objects.create(menu_id=mid, role_id=rid)
     return JsonResponse({'status': True})
+
+
+def addUserRole(request, uid):
+    if request.method == "GET":
+        role_list = models.SysRole.objects.filter(role_status='Y')
+        form_type = 'addRole'
+        return render(request, "userRole.html", locals())
+    if request.method == "POST":
+        models.SysUserRole.objects.filter(user_id=uid).delete()
+        roles = request.POST.getlist("role")
+        for rid in roles:
+            models.SysUserRole.objects.create(user_id=uid, role_id=rid)
+        return JsonResponse({'status': True})

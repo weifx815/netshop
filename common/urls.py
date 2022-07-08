@@ -30,4 +30,5 @@ urlpatterns = [
     path('role/delete/<str:rid>/', views.RoleDelete),
     path('role/roleMenu/<str:rid>/', views.RoleMenu),
     path('role/saveRoleMenu/', views.SaveRoleMenu),
+    path('role/addRole/<str:uid>/', views.addUserRole),
 ]

@@ -24,9 +24,12 @@
             filter: true,
             searchShowParent: true
         };
+        let selectObj;
+        $(function () {
+            selectObj = $("#menu").treeSelect(defaults);
+        })
 function submitRoleMenuForm(){
     let url = '/common/role/saveRoleMenu/';
-    let selectObj = $("#menu").treeSelect(defaults);
     let select_value = selectObj.val();
     $("#menuIds").val(JSON.stringify(select_value));
     if(select_value == ''){
