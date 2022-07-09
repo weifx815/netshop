@@ -24,6 +24,7 @@ urlpatterns = [
     # path('r^login/', apps.user.views.login),
     path('user/', include(('apps.user.urls', 'user'), namespace='user')),
     path('index/', apps.user.views.index),
+    path('loginout/', apps.user.views.loginout),
     path('common/', include(('common.urls', 'common'), namespace='common')),
     path('createUser/', apps.user.views.createUser),
 ]

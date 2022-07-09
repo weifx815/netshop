@@ -36,6 +36,11 @@ def index(request):
     return render(request, "index.html")
 
 
+def loginout(request):
+    request.session.clear()
+    return redirect("/login/")
+
+
 def userList(request):
     user_list = models.UserAdminInfo.objects.all()
     return render(request, "adminUser.html", {"user_list": user_list})

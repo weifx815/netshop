@@ -46,8 +46,8 @@ def menuView(request, mid):
 
 
 def menuDelete(request, mid):
-    obj = models.SysMenu.objects.filter(id=mid).first()
-    obj.delete()
+    models.SysMenu.objects.filter(id=mid).first().delete()
+    models.SysRoleMenu.objects.filter(menu_id=mid).delete()
     return redirect("/common/menu/list/")
 
 
@@ -86,8 +86,9 @@ def RoleEdit(request, rid):
 
 
 def RoleDelete(request, rid):
-    obj = models.SysRole.objects.filter(id=rid).first()
-    obj.delete()
+    models.SysRole.objects.filter(id=rid).first().delete()
+    models.SysUserRole.objects.filter(role_id=rid).delete()
+    models.SysRoleMenu.objects.filter(role_id=rid).delete()
     return redirect("/common/role/list/")
 
 
@@ -96,7 +97,7 @@ def RoleMenu(request, rid):
     role_list = models.SysRoleMenu.objects.filter(role_id=rid)
     role_ids = []
     for role in role_list:
-        role_ids.append(role.menu_id)
+        role_ids.append(str(role.menu_id))
     menu_ids = ','.join(role_ids)
     menu_list = get_Menu_List("ALL")
     json_menu = []
@@ -111,13 +112,13 @@ def RoleMenu(request, rid):
 
 
 def SaveRoleMenu(request):
-    menu_ids = request.POST.get("menuIds").split("[")[1].split("]")[0].split(",")
+    menu_ids = request.POST.get("menuIds").split(",")
     rid = request.POST.get("rid")
     if len(menu_ids) == 0:
         return JsonResponse({'status': False})
     models.SysRoleMenu.objects.filter(role_id=rid).delete()
     for mid in menu_ids:
-        models.SysRoleMenu.objects.create(menu_id=mid, role_id=rid)
+        models.SysRoleMenu.objects.create(menu_id=int(mid), role_id=rid)
     return JsonResponse({'status': True})
 
 

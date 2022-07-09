@@ -31,7 +31,7 @@
 function submitRoleMenuForm(){
     let url = '/common/role/saveRoleMenu/';
     let select_value = selectObj.val();
-    $("#menuIds").val(JSON.stringify(select_value));
+    $("#menuIds").val(select_value);
     if(select_value == ''){
         $("#menu_error").text("提示：请选择相应的菜单")
         return;
