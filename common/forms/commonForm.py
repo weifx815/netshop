@@ -17,7 +17,6 @@ class RoleModelForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)  # 初始化父类方法
-        print(self.fields)
         for name, field in self.fields.items():
             field.widget.attrs = {'class': 'form-control',
                                   'placeholder': field.label,
@@ -31,3 +30,30 @@ class ROLEMenuModelForm(forms.ModelForm):
         model = models.SysRoleMenu
         fields = ['role_id', 'menu_id']
 
+
+class CodeTableManageForm(forms.ModelForm):
+    class Meta:
+        model = models.SysCodeTablesManage
+        fields = ['code_table', 'code_table_name', 'valid_status']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  # 初始化父类方法
+        for name, field in self.fields.items():
+            field.widget.attrs = {'class': 'form-control',
+                                  'placeholder': field.label,
+                                  'title': field.label,
+                                  'id': name}
+
+
+class CodeTableForm(forms.ModelForm):
+    class Meta:
+        model = models.SysCodeTables
+        fields = ['code', 'name', 'code_table', 'valid_status']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  # 初始化父类方法
+        for name, field in self.fields.items():
+            field.widget.attrs = {'class': 'form-control',
+                                  'placeholder': field.label,
+                                  'title': field.label,
+                                  'id': name}

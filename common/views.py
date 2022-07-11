@@ -7,8 +7,7 @@ import json
 
 
 def MenuList(request):
-    user_id = request.session["userinfo"].get("id")
-    return render(request, "menuList.html", {"menu_list": get_Menu_List("ALL"), "user_id": str(user_id)})
+    return render(request, "menuList.html", {"menu_list": get_Menu_List("ALL")})
 
 
 def menuEdit(request, mid):
@@ -133,3 +132,22 @@ def addUserRole(request, uid):
         for rid in roles:
             models.SysUserRole.objects.create(user_id=uid, role_id=rid)
         return JsonResponse({'status': True})
+
+
+def CodeTableList(request):
+    code_list = models.SysCodeTablesManage.objects.all()
+    return render(request, "codetablelist.html", locals())
+
+
+def CodeTableAdd(request):
+    if request.method == "GET":
+        ctm = commonForm.CodeTableManageForm()
+        form_type = 'add'
+        return render(request, "codetable.html", locals())
+    if request.method == "POST":
+        ctm = commonForm.CodeTableManageForm(data=request.POST)
+        if ctm.is_valid():
+            ctm.save()
+            return JsonResponse({'status': True})
+        else:
+            return JsonResponse({'status': False, "errors": ctm.errors})

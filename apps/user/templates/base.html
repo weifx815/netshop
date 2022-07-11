@@ -37,7 +37,7 @@
             </li>
             <!-- Divider -->
             {% load menu_tag %}
-            {% get_menu_html user_id %}
+            {% get_menu_html request %}
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -321,6 +321,7 @@
     <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
     <script src="{% static 'js/common/menu.js' %}"></script>
     <script src="{% static 'js/common/role.js' %}"></script>
+    <script src="{% static 'js/common/codetable.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/user/register.js' %}"></script>
 </body>
 

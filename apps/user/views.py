@@ -27,7 +27,7 @@ def login(request):
             if not obj:
                 form.add_error("password", "用户名或密码错误")
                 return render(request, "login.html", {'form': form})
-            request.session["userinfo"] = {"id": obj.id, "user_name": obj.user_name}
+            request.session["userinfo"] = {"id": obj.id, "user_name": obj.user_name, "isadmin": isadmin}
             return redirect("/index/")
         return render(request, "login.html", {'form': form})
 

@@ -18,12 +18,14 @@ from common import views
 
 urlpatterns = [
     # 前段访问 /common/menu/
+    # 菜单相关
     path('menu/list/', views.MenuList),
     path('menu/menuEdit/', views.menuEdit),
     path('menu/add/', views.menuAdd),
     path('menu/edit/<str:mid>', views.menuEdit),
     path('menu/view/<str:mid>/', views.menuView),
     path('menu/delete/<str:mid>/', views.menuDelete),
+    # 角色相关
     path('role/list/', views.RoleList),
     path('role/add/', views.RoleAdd),
     path('role/edit/<str:rid>', views.RoleEdit),
@@ -31,4 +33,7 @@ urlpatterns = [
     path('role/roleMenu/<str:rid>/', views.RoleMenu),
     path('role/saveRoleMenu/', views.SaveRoleMenu),
     path('role/addRole/<str:uid>/', views.addUserRole),
+    # 码表相关
+    path('codetable/list/', views.CodeTableList),
+    path('codetable/add/', views.CodeTableAdd),
 ]
