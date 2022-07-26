@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% block js %}
+    <script src="{% static 'js/common/gotoPage.js' %}"></script>
+    <script src="{% static 'js/common/role.js' %}"></script>
+{% endblock %}
 {% block content %}
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="d-sm-flex align-items-center justify-content-between mb-0">
             <h1 class="h5 mb-0 text-gray-800">系统角色管理</h1>
-            <a data-toggle="modal" onclick="fngotorolepage('add','')"
+            <a data-toggle="modal" onclick="fnGotoPage('/common/role/add/',1)"
                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">新增</a>
         </div>
         <div class="card-body">
@@ -34,9 +38,9 @@
                             <td>{{ obj.role_describe }}</td>
                             <td>{{ obj.get_role_status_display }}</td>
                             <td style="text-align: center">
-                                <img style="cursor:pointer" width="20px" height="20px" src="/static/img/edit.png" title="编辑" onclick="fngotorolepage('edit',{{ obj.id }})">&nbsp;&nbsp;
-                                <img style="cursor:pointer" width="20px" height="20px" src="/static/img/delete.png" title="删除" onclick="fnDeleteRole('delete', {{ obj.id }})">&nbsp;&nbsp;
-                                <img style="cursor:pointer" width="20px" height="20px" src="/static/img/menu.png" title="添加菜单" onclick="fngotorolepage('roleMenu', {{ obj.id }})">
+                                <img style="cursor:pointer" width="20px" height="20px" src="/static/img/edit.png" title="编辑" onclick="fnGotoPage('/common/role/edit/{{ obj.id }}',1)">&nbsp;&nbsp;
+                                <img style="cursor:pointer" width="20px" height="20px" src="/static/img/delete.png" title="删除" onclick="fnDelete('/common/role/delete/{{ obj.id }}', 1)">&nbsp;&nbsp;
+                                <img style="cursor:pointer" width="20px" height="20px" src="/static/img/menu.png" title="添加菜单" onclick="fnGotoPage('/common/role/roleMenu/{{ obj.id }}', 1)">
                             </td>
                         </tr>
                     {% endfor %}

@@ -48,7 +48,7 @@ class CodeTableManageForm(forms.ModelForm):
 class CodeTableForm(forms.ModelForm):
     class Meta:
         model = models.SysCodeTables
-        fields = ['code', 'name', 'code_table', 'valid_status']
+        fields = ['code', 'name', 'code_table_manage', 'valid_status']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)  # 初始化父类方法

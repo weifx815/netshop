@@ -318,10 +318,9 @@
     <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
 
     <!-- Page level custom scripts -->
+    {% block js %}
+    {% endblock %}
     <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
-    <script src="{% static 'js/common/menu.js' %}"></script>
-    <script src="{% static 'js/common/role.js' %}"></script>
-    <script src="{% static 'js/common/codetable.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/user/register.js' %}"></script>
 </body>
 

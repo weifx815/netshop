@@ -12,9 +12,17 @@ def MenuList(request):
 
 def menuEdit(request, mid):
     obj = models.SysMenu.objects.filter(id=mid).first()
-    menu_list = get_Menu_List('1')
-    form_type = "edit"
-    return render(request, "menuEdit.html", locals())
+    if request.method == "GET":
+        menu_list = get_Menu_List('1')
+        form_type = "edit"
+        return render(request, "menuEdit.html", locals())
+    if request.method == "POST":
+        menu_form = commonForm.MenuModelForm(data=request.POST, instance=obj)
+        if menu_form.is_valid():
+            menu_form.save()
+            return JsonResponse({'status': True, 'url': '/common/menu/list/'})
+        else:
+            return render(request, "menuEdit.html", {"menu_form": menu_form, "menu_list": get_Menu_List('1')})
 
 
 def get_Menu_List(menu_level):
@@ -134,16 +142,16 @@ def addUserRole(request, uid):
         return JsonResponse({'status': True})
 
 
-def CodeTableList(request):
+def CodeTableManageList(request):
     code_list = models.SysCodeTablesManage.objects.all()
-    return render(request, "codetablelist.html", locals())
+    return render(request, "codetablemanagelist.html", locals())
 
 
-def CodeTableAdd(request):
+def CodeTableManageAdd(request):
     if request.method == "GET":
         ctm = commonForm.CodeTableManageForm()
         form_type = 'add'
-        return render(request, "codetable.html", locals())
+        return render(request, "codetablemanage.html", locals())
     if request.method == "POST":
         ctm = commonForm.CodeTableManageForm(data=request.POST)
         if ctm.is_valid():
@@ -151,3 +159,65 @@ def CodeTableAdd(request):
             return JsonResponse({'status': True})
         else:
             return JsonResponse({'status': False, "errors": ctm.errors})
+
+
+def CodeTableManageEdit(request, mid):
+    obj = models.SysCodeTablesManage.objects.filter(id=mid).first()
+    if request.method == "GET":
+        ctm = commonForm.CodeTableManageForm(instance=obj)
+        form_type = 'edit'
+        return render(request, "codetablemanage.html", locals())
+    if request.method == "POST":
+        ctm = commonForm.CodeTableManageForm(data=request.POST, instance=obj)
+        if ctm.is_valid():
+            ctm.save()
+            return JsonResponse({'status': True})
+        else:
+            return JsonResponse({'status': False, "errors": ctm.errors})
+
+
+def CodeTableManageDelete(request, mid):
+    obj = models.SysCodeTablesManage.objects.filter(id=mid).first()
+    obj.delete()
+    return redirect("/common/codetable/manage/list/")
+
+
+def CodeTableList(request):
+    code_list = models.SysCodeTables.objects.all()
+    return render(request, "codetablelist.html", locals())
+
+
+def CodeTableAdd(request):
+    if request.method == "GET":
+        ctm = commonForm.CodeTableForm()
+        form_type = 'add'
+        return render(request, "codetable.html", locals())
+    if request.method == "POST":
+        ctm = commonForm.CodeTableForm(data=request.POST)
+        if ctm.is_valid():
+            ctm.save()
+            return JsonResponse({'status': True})
+        else:
+            return JsonResponse({'status': False, "errors": ctm.errors})
+
+
+def CodeTableEdit(request, mid):
+    obj = models.SysCodeTables.objects.filter(id=mid).first()
+    if request.method == "GET":
+        ctm = commonForm.CodeTableForm(instance=obj)
+        form_type = 'edit'
+        return render(request, "codetable.html", locals())
+    if request.method == "POST":
+        ctm = commonForm.CodeTableForm(data=request.POST, instance=obj)
+        if ctm.is_valid():
+            ctm.save()
+            return JsonResponse({'status': True})
+        else:
+            return JsonResponse({'status': False, "errors": ctm.errors})
+
+
+def CodeTableDelete(request, mid):
+    obj = models.SysCodeTables.objects.filter(id=mid).first()
+    obj.delete()
+    return redirect("/common/codetable/list/")
+

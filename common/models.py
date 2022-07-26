@@ -9,6 +9,9 @@ class SysCodeTablesManage(BaseModel):
     code_table_name = models.CharField(verbose_name="代码表名称", max_length=50)
     valid_status = models.CharField(verbose_name="有效状态(默认Y有效)", choices=options.valid_choose, default='Y', max_length=1)
 
+    def __str__(self):
+        return self.code_table_name
+
     class Meta:
         """公共代码表管理"""
         db_table = 'sys_code_tables_manage'
@@ -22,7 +25,7 @@ class SysCodeTables(BaseModel):
     """公共代码表相应值"""
     code = models.CharField(verbose_name="代码值", max_length=10)
     name = models.CharField(verbose_name="相应名称", max_length=100)
-    code_table = models.CharField(verbose_name="代码表名", max_length=10)
+    code_table_manage = models.ForeignKey(verbose_name="码表名", to=SysCodeTablesManage, to_field="id", on_delete=models.CASCADE)
     valid_status = models.CharField(verbose_name="有效状态(默认Y有效)", choices=options.valid_choose, default='Y', max_length=1)
 
     class Meta:
